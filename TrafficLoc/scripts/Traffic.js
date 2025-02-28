@@ -79,5 +79,5 @@ define("DS/TrafficLoc/scripts/Traffic", [], function () {
         }
     };
 
-    widget.addEvent("onLoad",mywidget.onLoadWidget);
+    widget.addEvent("onLoad",myWidget.onLoadWidget);
 });
