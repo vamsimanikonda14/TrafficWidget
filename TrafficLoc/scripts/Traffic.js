@@ -1,8 +1,8 @@
-define("DS/TrafficLoc/scripts/Traffic", [], function () {
+define("DS/TrafficLoc/scripts/Traffic", [DS/WAFData/WAFData], function (WAFDAta) {
     'use strict';
 
     var myWidget = {
-        onLoad: function () {
+        onLoadWidget: function () {
             // Creating HTML content with map container
             widget.body.innerHTML = "<div id='map' style='width: 100%; height: 500px;'></div>"; // Added map container
 
