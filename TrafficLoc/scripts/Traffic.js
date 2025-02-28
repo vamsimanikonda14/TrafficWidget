@@ -1,8 +1,8 @@
-define("DS/TrafficLoc/scripts/Traffic", [DS/WAFData/WAFData], function (WAFDAta) {
+define("DS/TrafficLoc/scripts/Traffic", [DS/WAFData/WAFData], function (WAFData) {
     'use strict';
 
     var myWidget = {
-        onLoadWidget: function () {
+        onLoad: function () {
             // Creating HTML content with map container
             widget.body.innerHTML = "<div id='map' style='width: 100%; height: 500px;'></div>"; // Added map container
 
@@ -79,5 +79,5 @@ define("DS/TrafficLoc/scripts/Traffic", [DS/WAFData/WAFData], function (WAFDAta)
         }
     };
 
-    widget.addEvent("onLoad",myWidget.onLoadWidget);
+    widget.addEvent("onLoad",myWidget.onLoad);
 });
