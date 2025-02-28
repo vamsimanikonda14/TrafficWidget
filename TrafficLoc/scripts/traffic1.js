@@ -3,35 +3,42 @@ define("DS/TrafficLoc/scripts/traffic1", [], function () {
 
     var myWidget = {
         onLoad: function () {
-            // Creating HTML content with map container
-            widget.body.innerHTML = "<div id='map' style='width: 100%; height: 500px;'></div>"; // Added map container
+            // Create HTML content with a map container
+            widget.body.innerHTML = '<div id="mapContainer" style="height: 400px; width: 100%;"></div>';
 
-            // Initialize the map
-            myWidget.initMap();
+            // Check if the browser supports geolocation
+            if (navigator.geolocation) {
+                // Get the user's current position
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    var lat = position.coords.latitude;
+                    var lon = position.coords.longitude;
+
+                    // Now that we have the coordinates, display the map
+                    myWidget.showMap(lat, lon);
+                }, function (error) {
+                    console.error("Error getting geolocation: " + error.message);
+                    alert("Unable to retrieve your location.");
+                });
+            } else {
+                console.error("Geolocation is not supported by this browser.");
+                alert("Geolocation is not supported by this browser.");
+            }
         },
 
-        initMap: function() {
-            // Create a Leaflet map instance
-            var map = L.map('map').setView([51.505, -0.09], 13);  // Default center is London with zoom level 13
+        showMap: function (latitude, longitude) {
+            // Example using Leaflet.js to display a map
+            // Create a map centered on the user's location
+            var map = L.map('mapContainer').setView([latitude, longitude], 13);
 
-            // Add OpenStreetMap tile layer to the map
+            // Add a tile layer to the map (using OpenStreetMap here)
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             }).addTo(map);
 
-            // Add a marker to the map at the center location
-            L.marker([51.505, -0.09]).addTo(map)
-                .bindPopup('<b>Hello world!</b><br>I am a popup.')
+            // Add a marker at the user's location
+            L.marker([latitude, longitude]).addTo(map)
+                .bindPopup('You are here!')
                 .openPopup();
-
-            // Optional: Add a custom event listener for clicks on the map
-            map.on('click', function(e) {
-                var clickedLocation = e.latlng;
-                console.log("You clicked the map at: " + clickedLocation.lat + ", " + clickedLocation.lng);
-                L.marker([clickedLocation.lat, clickedLocation.lng]).addTo(map)
-                    .bindPopup('You clicked here!')
-                    .openPopup();
-            });
         }
     };
 
